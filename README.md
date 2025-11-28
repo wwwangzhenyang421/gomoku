@@ -44,66 +44,48 @@ npm run preview
 4. 可以使用悔棋功能撤销上一步
 5. 游戏结束后可以点击重玩开始新局
 
-## 部署
+## 部署到 GitHub Pages
 
-### GitHub Pages 自动部署
+### 一键部署（推荐）
 
-项目已配置 GitHub Actions 自动部署，只需以下步骤：
-
-1. **创建 GitHub 仓库**
-   ```bash
-   # 初始化 Git 仓库（如果还没有）
-   git init
-   
-   # 添加所有文件
-   git add .
-   
-   # 提交
-   git commit -m "Initial commit"
-   
-   # 在 GitHub 上创建新仓库（例如：gomoku）
-   # 然后添加远程仓库并推送
-   git remote add origin https://github.com/你的用户名/gomoku.git
-   git branch -M main
-   git push -u origin main
-   ```
-
-2. **修改 base 路径（重要）**
-   
-   如果您的仓库名不是 `gomoku`，需要修改 `vite.config.js` 中的 base 路径：
-   
-   ```javascript
-   base: process.env.NODE_ENV === 'production' 
-     ? '/你的仓库名/'  // 修改这里
-     : '/',
-   ```
-   
-   例如，如果仓库名是 `my-gomoku-game`，则改为：
-   ```javascript
-   base: process.env.NODE_ENV === 'production' 
-     ? '/my-gomoku-game/'
-     : '/',
-   ```
-
-3. **启用 GitHub Pages**
-   - 进入 GitHub 仓库的 Settings
-   - 点击左侧的 Pages
-   - 在 Source 下拉菜单中选择 "GitHub Actions"
-   - 保存设置
-
-4. **自动部署**
-   - 每次推送到 `main` 或 `master` 分支时，GitHub Actions 会自动构建并部署
-   - 部署完成后，访问地址为：`https://你的用户名.github.io/你的仓库名/`
-   - 首次部署可能需要几分钟时间
-
-### 手动部署
-
-如果需要手动部署：
+项目已配置简单的部署脚本，只需一个命令：
 
 ```bash
-npm run build
-# 将 dist 目录的内容部署到 GitHub Pages
+npm run deploy
 ```
+
+这个命令会：
+1. 自动构建项目
+2. 创建或切换到 `gh-pages` 分支
+3. 将构建文件推送到 GitHub
+4. 自动切换回 `main` 分支
+
+### 首次部署前的设置
+
+1. **启用 GitHub Pages**
+   - 访问：https://github.com/wwwangzhenyang421/gomoku/settings/pages
+   - 在 Source 下拉菜单中选择 **"Deploy from a branch"**
+   - Branch 选择 `gh-pages`，文件夹选择 `/ (root)`
+   - 点击 Save
+
+2. **运行部署命令**
+   ```bash
+   npm run deploy
+   ```
+
+3. **访问你的网站**
+   - 部署完成后，访问：https://wwwangzhenyang421.github.io/gomoku/
+   - 首次部署可能需要几分钟才能生效
+
+### 后续更新
+
+每次修改代码后，只需运行：
+
+```bash
+npm run deploy
+```
+
+即可自动部署最新版本。
 
 ### 其他部署平台
 
